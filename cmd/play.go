@@ -21,11 +21,6 @@ var playCmd = &cobra.Command{
 	Long: `Start the Drum Machine with the
 default sound bank. Awesome!`,
 	Run: func(cmd *cobra.Command, args []string) {
-		kick, _ := utils.InitPad("../kick.mp3")
-		defer kick.Close()
-
-		snr, _ := utils.InitPad("../snr.mp3")
-		defer snr.Close()
 
 		exec.Command("stty", "-F", "/dev/tty", "-cooked").Run()
 		exec.Command("stty", "-F", "/dev/tty", "-echo").Run()
@@ -38,7 +33,9 @@ default sound bank. Awesome!`,
 			}
 			switch key[0] {
 			case 'q':
-				go utils.Play(kick)
+				go utils.Play("kick.mp3")
+			case 'w':
+				go utils.Play("snr.mp3")
 			}
 		}
 		fmt.Print("Bye")

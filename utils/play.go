@@ -1,42 +1,39 @@
 package utils
 
 import (
-	"fmt"
-	"os"
-	"time"
-
 	"github.com/hajimehoshi/go-mp3"
 	"github.com/hajimehoshi/oto/v2"
+	"os"
+	"time"
 )
 
-func InitPad(padFile string) (oto.Player, error) {
-	f, err := os.Open(padFile)
+func Play(s string) error {
+	f, err := os.Open(s)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 	defer f.Close()
-
 	d, err := mp3.NewDecoder(f)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	c, ready, err := oto.NewContext(d.SampleRate(), 2, 2)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	<-ready
-	pad := c.NewPlayer(d)
-	return pad, nil
-}
 
-func Play(pad oto.Player) {
-	pad.Play()
-	fmt.Println("playing")
+	p := c.NewPlayer(d)
+	defer p.Close()
+	p.Play()
+
 	for {
 		time.Sleep(time.Second)
-		if !pad.IsPlaying() {
+		if !p.IsPlaying() {
 			break
 		}
 	}
+
+	return nil
 }
