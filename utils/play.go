@@ -31,9 +31,7 @@ func Play(s string) error {
 	for {
 		time.Sleep(time.Second)
 		if !p.IsPlaying() {
-			break
+			return nil
 		}
 	}
-
-	return nil
 }

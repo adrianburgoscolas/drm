@@ -1,6 +1,6 @@
 /*
 
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+Copyright © 2022 Adrian Burgos <adrian.burgos.colas@gmail.com>
 
 */
 package cmd
@@ -36,6 +36,14 @@ default sound bank. Awesome!`,
 				go utils.Play("kick.mp3")
 			case 'w':
 				go utils.Play("snr.mp3")
+			case 'e':
+				go utils.Play("closehi.mp3")
+			case 'a':
+				go utils.Play("openhi.mp3")
+			case 's':
+				go utils.Play("Heater-1.mp3")
+			case 'd':
+				go utils.Play("Heater-3.mp3")
 			}
 		}
 		fmt.Print("Bye")
